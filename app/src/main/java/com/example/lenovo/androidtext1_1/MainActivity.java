@@ -1,16 +1,23 @@
 package com.example.lenovo.androidtext1_1;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.example.lenovo.androidtext1_1.loginandre.MainUIActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private LinearLayout mLayout;
     private View mView;
     private int  mSpace=0;
+    private int currentItem;
+    float startX=0;
+    float endX;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +48,38 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             }
         });
         initData();
+        listener();
+    }
+    //监听是否为最后一页
+    private void listener() {
+        mPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        startX=event.getX();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        endX=event.getX();
+                        WindowManager windowManager= (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+                        //获取屏幕的宽度
+                        Point size = new Point();
+                        windowManager.getDefaultDisplay().getSize(size);
+                        int width=size.x;
+                        //首先要确定的是，是否到了最后一页，然后判断是否向左滑动，并且滑动距离是否符合，我这里的判断距离是屏幕宽度的4分之一（这里可以适当控制）
+                        if(currentItem==(mList.size()-1) && startX-endX>0 && startX-endX>=(width/4)){
+                            Intent intent=new Intent(MainActivity.this,MainUIActivity.class);
+                            startActivity(intent);
+                            finish();
+                            //overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left);
+                        }
+                        break;
+                }
+                return false;
+            }
+               // return false;
+        });
     }
 
     private void initData() {
@@ -69,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int i) {
-
+        currentItem=i;
     }
 
     @Override

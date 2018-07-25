@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".loginandre.RegisteredActivity"
+    android:orientation="vertical"
+    android:background="#aaa">
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:background="#fff">
+        <RadioButton
+            android:id="@+id/btn_phone"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:textSize="25dp"
+            android:text="手机注册"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"/>
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="#CCC"/>
+        <RadioButton
+            android:id="@+id/btn_email"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="邮箱注册"
+            android:button="@null"
+            android:textSize="25dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"/>
+    </RadioGroup>
+   <FrameLayout
+       android:id="@+id/fl_layout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="10dp">
+   </FrameLayout>
+
+
+</LinearLayout>
