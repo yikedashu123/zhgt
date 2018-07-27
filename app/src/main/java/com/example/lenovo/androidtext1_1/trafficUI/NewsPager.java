@@ -6,7 +6,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,7 @@ public class NewsPager extends MenuPagerBase  {
         mPager=view.findViewById(R.id.vp_newsPager);
         mView=view.findViewById(R.id.lv_newsList);
         initNews();
-       // mView.setAdapter(new MyListAdapter()); //TODO 这里有毒
+        mView.setAdapter(new MyListAdapter()); //TODO 这里有毒
 
         gundong();
         initData();
@@ -67,17 +66,19 @@ public class NewsPager extends MenuPagerBase  {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             //TODO 有空指针
-           View view1=LayoutInflater.from(mView.getContext()).inflate(R.layout.news_layout,viewGroup,false);
-            Log.i("pPPPPPPPPP", "getView: "+view+mContext);
+           View view1=LayoutInflater.from(mContext).inflate(R.layout.news_layout,viewGroup,false);
             TextView textView=view1.findViewById(R.id.tv_news_text);
+            TextView textView1=view1.findViewById(R.id.tv_news_title);
             textView.setText(mLisetNews.get(i).getContent());
+            textView1.setText(mLisetNews.get(i).getTitle());
             ImageView imageView=view1.findViewById(R.id.iv_news_image);
+
             if(-1 == mLisetNews.get(i).getImage())
                 imageView.setVisibility(View.GONE);
             else {
                 imageView.setImageResource( mLisetNews.get(i).getImage());
             }
-            return null;
+            return view1;
         }
     }
     private void gundong() {
@@ -154,9 +155,11 @@ public class NewsPager extends MenuPagerBase  {
         News news=new News();
         news.setContent("哈哈哈哈哈哈哈");
         news.setImage(R.drawable.head);
+        news.setTitle("哈哈哈哈哈哈哈");
         mLisetNews.add(news);
         News news1=new News();
         news1.setContent("哈哈哈哈哈哈哈");
+        news1.setTitle("哈哈哈哈哈哈哈");
         news1.setImage(-1);
         mLisetNews.add(news1);
     }
