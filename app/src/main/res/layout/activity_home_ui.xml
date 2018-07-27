@@ -73,6 +73,7 @@
                 android:layout_marginRight="10dp"
                 android:background="#00CD66"/>
             <Button
+                android:id="@+id/btn_callTaxi"
                 android:layout_width="0dp"
                 android:layout_weight="14"
                 android:layout_height="match_parent"
@@ -119,7 +120,17 @@
                 android:layout_weight="5"
                 android:layout_height="match_parent"
                 android:background="#6495ED"
-                />
+                android:orientation="vertical"
+                >
+                <Button
+                    android:id="@+id/btn_mineHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:text="我的位置"
+                    android:background="#6495ED"/>
+            </LinearLayout>
+
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"

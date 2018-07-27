@@ -1,9 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".dadi.CallTaxiActivity">
+    tools:context=".dadi.CallTaxiActivity"
+    android:orientation="vertical"
+    android:background="#EEE">
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mp_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
-</android.support.constraint.ConstraintLayout>
+    </com.baidu.mapapi.map.MapView>
+    <TextView
+        android:id="@+id/tv_callTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:text="已花费时长"
+        android:layout_marginTop="30dp"/>
+    <TextView
+        android:id="@+id/tv_callMoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="#000"
+        android:layout_marginTop="30dp"
+        android:text="按时金额"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="已上车"
+            android:layout_height="match_parent"
+            android:background="@drawable/call_taxi_btn"
+           />
+        <Button
+            android:id="@+id/btn_stop"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:text="下车"
+            android:background="@drawable/call_taxi_btn"/>
+        <Button
+            android:id="@+id/btn_pay"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:text="付款"
+            android:background="@drawable/call_taxi_btn"/>
+    </LinearLayout>
+</LinearLayout>

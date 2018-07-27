@@ -2,7 +2,6 @@ package com.example.lenovo.androidtext1_1.tools;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.ListView;
 
 import com.example.lenovo.androidtext1_1.userData.User;
 
@@ -36,6 +35,33 @@ public class CacheUtils {
         SharedPreferences sp=getSp(context);
         return sp.getBoolean(key,deValue);
     }
+
+    public static void setBooleans(Context context,String key,boolean value)
+    {
+        sp=getSp(context);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putBoolean(key,value);
+        editor.commit();
+    }
+    public static boolean getBooleans(Context context,String key,boolean deValue)
+    {
+        SharedPreferences sp=getSp(context);
+        return sp.getBoolean(key,deValue);
+    }
+
+    public static void setLong(Context context,String key,long value)
+    {
+        sp=getSp(context);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putLong(key,value);
+        editor.commit();
+    }
+    public static long getLong(Context context,String key,long deValue)
+    {
+        SharedPreferences sp=getSp(context);
+        return sp.getLong(key,deValue);
+    }
+
 
     public static void setUser(Context context,String[] key,User value)
     {

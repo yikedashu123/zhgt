@@ -1,10 +1,14 @@
 package com.example.lenovo.androidtext1_1;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.lenovo.androidtext1_1.loginandre.MainUIActivity;
 import com.example.lenovo.androidtext1_1.mainUI.HomeUIActivity;
@@ -40,6 +45,49 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        List<String> list=new ArrayList<>();
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
+        {
+            list.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_PHONE_STATE)!= PackageManager.PERMISSION_GRANTED)
+        {
+            list.add(Manifest.permission.READ_PHONE_STATE);
+        }
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
+        {
+            list.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }if(!list.isEmpty())
+        {
+            String []p=list.toArray(new String[list.size()]);
+            ActivityCompat.requestPermissions(this,p,1);
+        }else {
+            initAll();
+        }
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode)
+        {
+            case 1:
+                if(grantResults.length>0)
+                {
+                    for(int i:grantResults)
+                    {
+                        if(i!=PackageManager.PERMISSION_DENIED)
+                        {
+                            Toast.makeText(MainActivity.this,"必须允许权限！",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    initAll();
+                }
+        }
+    }
+    private void initAll() {
         noFirst= CacheUtils.getBoolean(this,IS_FIRST,false);
         if(noFirst)
         {
@@ -61,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         initData();
         listener();
     }
+
     //监听是否为最后一页
     private void listener() {
         mPager.setOnTouchListener(new View.OnTouchListener() {

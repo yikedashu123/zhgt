@@ -40,7 +40,7 @@ public class NewsPager extends MenuPagerBase  {
         mPager=view.findViewById(R.id.vp_newsPager);
         mView=view.findViewById(R.id.lv_newsList);
         initNews();
-//        mView.setAdapter(new MyListAdapter()); TODO 这里有毒
+       // mView.setAdapter(new MyListAdapter()); //TODO 这里有毒
 
         gundong();
         initData();

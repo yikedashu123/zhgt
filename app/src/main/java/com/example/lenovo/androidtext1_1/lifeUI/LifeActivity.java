@@ -29,11 +29,16 @@ public class LifeActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        Life life;
+        Life life1;
         mList=new ArrayList<>();
-        Life life=new Life(8,"立减卷","家政洗衣按摩美业芬","","2016.03.06-2016.03.08有效");
+        life=new Life(8,"立减卷","家政洗衣按摩美业芬","","2016.03.06-2016.03.08有效");
         mList.add(life);
-        Life life1=new Life(50,"满减卷","仅限昆仑山使用","满99可用","2016.03.06-2016.03.08有效");
-        mList.add(life1);
+        for(int i=0;i<9;i++)
+        {
+            life1=new Life(50,"满减卷","仅限昆仑山使用","满99可用","2016.03.06-2016.03.08有效");
+            mList.add(life1);
+        }
     }
     class MyLifeAdapter extends BaseAdapter{
 

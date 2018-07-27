@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".position.MyPostionActivity"
+    android:orientation="vertical"
+    android:background="#EEE">
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mv_my"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="30dp">
+
+    </com.baidu.mapapi.map.MapView>
+    <Button
+        android:id="@+id/btn_aims"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/call_taxi_btn"
+        android:text="获取目标位置"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+    <Button
+        android:id="@+id/btn_mine"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/call_taxi_btn"
+        android:layout_marginTop="20dp"
+        android:text="定位自身位置"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+</LinearLayout>

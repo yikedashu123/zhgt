@@ -10,8 +10,10 @@ import android.widget.ImageView;
 
 import com.example.lenovo.androidtext1_1.R;
 import com.example.lenovo.androidtext1_1.Weather.WeatherActivity;
+import com.example.lenovo.androidtext1_1.dadi.CallTaxiActivity;
 import com.example.lenovo.androidtext1_1.lifeUI.LifeActivity;
 import com.example.lenovo.androidtext1_1.loginandre.MainUIActivity;
+import com.example.lenovo.androidtext1_1.position.MyPostionActivity;
 import com.example.lenovo.androidtext1_1.tools.Gradient;
 import com.example.lenovo.androidtext1_1.tools.ShakeListener;
 import com.example.lenovo.androidtext1_1.trafficUI.TrafficActivity;
@@ -23,7 +25,7 @@ public class HomeUIActivity extends AppCompatActivity implements View.OnClickLis
     private Gradient mImage;
     private List<ImageView> mList;
     private ShakeListener mListener;
-    private Button mTraffic,mLife,mWeather;
+    private Button mTraffic,mLife,mWeather,mTaxi,mMine;
     private Intent intent;
 
     @Override
@@ -34,6 +36,8 @@ public class HomeUIActivity extends AppCompatActivity implements View.OnClickLis
         mTraffic=findViewById(R.id.btn_traffic);
         mLife=findViewById(R.id.btn_life);
         mWeather=findViewById(R.id.btn_weather);
+        mTaxi=findViewById(R.id.btn_callTaxi);
+        mMine=findViewById(R.id.btn_mineHome);
         Log.i("PPPPPPPPP", "listener: 进入");
         listener();
         huanye();
@@ -45,13 +49,14 @@ public class HomeUIActivity extends AppCompatActivity implements View.OnClickLis
         mTraffic.setOnClickListener(this);
         mLife.setOnClickListener(this);
         mWeather.setOnClickListener(this);
+        mTaxi.setOnClickListener(this);
+        mMine.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
         switch (view.getId())
         {
             case R.id.btn_traffic:
-                Log.i("PPPPPPPPPPP", "onClick: 点击");
                 intent = new Intent(HomeUIActivity.this, TrafficActivity.class);
                 startActivity(intent);
                 break;
@@ -61,6 +66,14 @@ public class HomeUIActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btn_weather:
                 intent=new Intent(HomeUIActivity.this, WeatherActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_callTaxi:
+                intent=new Intent(HomeUIActivity.this, CallTaxiActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_mineHome:
+                intent=new Intent(HomeUIActivity.this, MyPostionActivity.class);
                 startActivity(intent);
                 break;
         }
