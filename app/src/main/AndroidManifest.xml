@@ -23,7 +23,8 @@
         <activity android:name=".mainUI.HomeUIActivity" />
         <activity android:name=".trafficUI.TrafficActivity" />
         <activity android:name=".lifeUI.LifeActivity" />
-        <activity android:name=".Weather.WeatherActivity"></activity>
+        <activity android:name=".Weather.WeatherActivity" />
+        <activity android:name=".dadi.CallTaxiActivity"></activity>
     </application>
 
 </manifest>

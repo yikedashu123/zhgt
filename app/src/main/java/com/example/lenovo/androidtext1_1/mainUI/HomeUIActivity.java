@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.lenovo.androidtext1_1.R;
+import com.example.lenovo.androidtext1_1.Weather.WeatherActivity;
 import com.example.lenovo.androidtext1_1.lifeUI.LifeActivity;
 import com.example.lenovo.androidtext1_1.loginandre.MainUIActivity;
 import com.example.lenovo.androidtext1_1.tools.Gradient;
@@ -22,7 +23,8 @@ public class HomeUIActivity extends AppCompatActivity implements View.OnClickLis
     private Gradient mImage;
     private List<ImageView> mList;
     private ShakeListener mListener;
-    private Button mTraffic,mLife;
+    private Button mTraffic,mLife,mWeather;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class HomeUIActivity extends AppCompatActivity implements View.OnClickLis
         mImage=findViewById(R.id.g_gra);
         mTraffic=findViewById(R.id.btn_traffic);
         mLife=findViewById(R.id.btn_life);
+        mWeather=findViewById(R.id.btn_weather);
         Log.i("PPPPPPPPP", "listener: 进入");
         listener();
         huanye();
@@ -41,7 +44,7 @@ public class HomeUIActivity extends AppCompatActivity implements View.OnClickLis
     private void listener() {
         mTraffic.setOnClickListener(this);
         mLife.setOnClickListener(this);
-        Log.i("PPPPPPPPP", "listener: 监听");
+        mWeather.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
@@ -49,12 +52,16 @@ public class HomeUIActivity extends AppCompatActivity implements View.OnClickLis
         {
             case R.id.btn_traffic:
                 Log.i("PPPPPPPPPPP", "onClick: 点击");
-                Intent intent=new Intent(HomeUIActivity.this, TrafficActivity.class);
+                intent = new Intent(HomeUIActivity.this, TrafficActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_life:
-                Intent intent1=new Intent(HomeUIActivity.this, LifeActivity.class);
-                startActivity(intent1);
+                 intent=new Intent(HomeUIActivity.this, LifeActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_weather:
+                intent=new Intent(HomeUIActivity.this, WeatherActivity.class);
+                startActivity(intent);
                 break;
         }
 
