@@ -47,6 +47,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:inputType="phone"
         android:hint="手机(你的账号)"
         android:textSize="20dp"
         android:gravity="center_vertical"
@@ -63,6 +64,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <EditText
+            android:id="@+id/et_code"
             android:layout_width="0dp"
             android:layout_weight="6"
             android:layout_height="45dp"
@@ -73,6 +75,7 @@
             android:background="@null"
             />
         <Button
+            android:id="@+id/btn_getCode"
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="wrap_content"

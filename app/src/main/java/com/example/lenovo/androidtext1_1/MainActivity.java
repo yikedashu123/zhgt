@@ -3,11 +3,11 @@ package com.example.lenovo.androidtext1_1;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.lenovo.androidtext1_1.loginandre.MainUIActivity;
+import com.example.lenovo.androidtext1_1.mainUI.HomeUIActivity;
+import com.example.lenovo.androidtext1_1.tools.CacheUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +28,24 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private ViewPager mPager;
     private List<ImageView> mList;
     private LinearLayout mLayout;
+    public static final String IS_FIRST="YES";
+    public static final String IS_LOGIN="login";
     private View mView;
     private int  mSpace=0;
     private int currentItem;
+    private Boolean noFirst;
     float startX=0;
     float endX;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        noFirst= CacheUtils.getBoolean(this,IS_FIRST,false);
+        if(noFirst)
+        {
+            Intent intent=new Intent(this,HomeUIActivity.class);
+            startActivity(intent);
+        }
         mPager=findViewById(R.id.vp_view);
         mLayout=findViewById(R.id.ll_layout);
         mView=findViewById(R.id.v_point);
