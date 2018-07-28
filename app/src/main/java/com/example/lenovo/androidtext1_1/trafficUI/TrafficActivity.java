@@ -1,5 +1,7 @@
 package com.example.lenovo.androidtext1_1.trafficUI;
 
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -13,9 +15,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lenovo.androidtext1_1.R;
+import com.example.lenovo.androidtext1_1.tools.MusicTools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TrafficActivity extends AppCompatActivity{
     private RecyclerView mView;
@@ -24,10 +28,14 @@ public class TrafficActivity extends AppCompatActivity{
     private List<MenuPagerBase> mListPager;
     int sign=-1;
     private MyRecyclerViewAdapter.ViewHolder mViewHolder=null;
+    private SoundPool sndPool;
+    private Map<Integer, Integer> loadSound;
+    private int playId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traffic);
+        start();
         mView=findViewById(R.id.rv_view);
         LinearLayoutManager manager=new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -37,6 +45,16 @@ public class TrafficActivity extends AppCompatActivity{
         initData();
         mPager.setAdapter(new MyPagerAdapter());
 
+    }
+    private void start() {
+        sndPool=new SoundPool(2, AudioManager.STREAM_MUSIC, 5);
+        loadSound= MusicTools.loadSound(sndPool,this);
+        sndPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                playId=sndPool.play(loadSound.get(2), 5, 5, 0, -1, 1);
+            }
+        });
     }
 
     private void initData() {
@@ -129,5 +147,13 @@ public class TrafficActivity extends AppCompatActivity{
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             container.removeView((View) object);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        sndPool.unload(playId);
+        sndPool.release();
+        sndPool=null;
     }
 }

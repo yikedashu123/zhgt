@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.lenovo.androidtext1_1.loginandre.MainUIActivity;
 import com.example.lenovo.androidtext1_1.mainUI.HomeUIActivity;
+import com.example.lenovo.androidtext1_1.tools.ActivityColse;
 import com.example.lenovo.androidtext1_1.tools.CacheUtils;
 
 import java.util.ArrayList;
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         }
     }
     private void initAll() {
+        ActivityColse.list.add(this);
         noFirst= CacheUtils.getBoolean(this,IS_FIRST,false);
         if(noFirst)
         {

@@ -1,11 +1,12 @@
 package com.example.lenovo.androidtext1_1.Weather;
 
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,13 @@ import android.widget.TextView;
 
 import com.example.lenovo.androidtext1_1.R;
 import com.example.lenovo.androidtext1_1.connectNet.ConnectWeather;
+import com.example.lenovo.androidtext1_1.tools.MusicTools;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class WeatherActivity extends AppCompatActivity {
     private TextView mCity,mContent,mTemper;
@@ -29,6 +32,9 @@ public class WeatherActivity extends AppCompatActivity {
     private RecyclerView mWeatherView;
     private List<Forecast> mList;
     private LinearLayout mLayout;
+    private SoundPool sndPool;
+    private Map<Integer, Integer> loadSound;
+    private int playId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +47,19 @@ public class WeatherActivity extends AppCompatActivity {
         mWeatherView=findViewById(R.id.rv_weather);
         mLayout=findViewById(R.id.LL_weatherLayout);
         mList=new ArrayList<>();
+        start();
         initData();
 
+    }
+    private void start() {
+        sndPool=new SoundPool(2, AudioManager.STREAM_MUSIC, 5);
+        loadSound= MusicTools.loadSound(sndPool,this);
+        sndPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                playId=sndPool.play(loadSound.get(1), 5, 5, 0, -1, 1);
+            }
+        });
     }
 
     private void initData() {
@@ -124,5 +141,20 @@ public class WeatherActivity extends AppCompatActivity {
                 wd=itemView.findViewById(R.id.tv_weather_wd);
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        sndPool.unload(playId);
+//        sndPool.release();
+//        sndPool=null;
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        sndPool.unload(playId);
+        sndPool.release();
+        sndPool=null;
     }
 }

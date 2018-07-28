@@ -1,7 +1,10 @@
 package com.example.lenovo.androidtext1_1.position;
 
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,6 +21,9 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.example.lenovo.androidtext1_1.R;
+import com.example.lenovo.androidtext1_1.tools.MusicTools;
+
+import java.util.Map;
 
 public class MyPostionActivity extends AppCompatActivity implements View.OnClickListener {
     public LocationClient mClient;
@@ -25,13 +31,20 @@ public class MyPostionActivity extends AppCompatActivity implements View.OnClick
     private BaiduMap baiduMap;
     private boolean isFirst=true;
     private Button mAims,mMine;
+    private MyPostionActivity.MyLocationListener mListener;
+    private BDLocation mBdLocation;
+    private SoundPool sndPool;
+    private Map<Integer, Integer> loadSound;
+    private int playId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mClient=new LocationClient(getApplicationContext());
-        mClient.registerLocationListener(new MyPostionActivity.MyLocationListener());
+        mListener=new MyPostionActivity.MyLocationListener();
+        mClient.registerLocationListener(mListener);
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_my_postion);
+        start();
         mView=findViewById(R.id.mv_my);
         mAims=findViewById(R.id.btn_aims);
         mMine=findViewById(R.id.btn_mine);
@@ -40,10 +53,22 @@ public class MyPostionActivity extends AppCompatActivity implements View.OnClick
         baiduMap=mView.getMap();
         baiduMap.setMyLocationEnabled(true);
     }
+    private void start() {
+        sndPool=new SoundPool(2, AudioManager.STREAM_MUSIC, 5);
+        loadSound= MusicTools.loadSound(sndPool,this);
+        sndPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                playId=sndPool.play(loadSound.get(3), 5, 5, 0, -1, 1);
+            }
+        });
+    }
 
     private void requestClient() {
         initLocation();
         mClient.start();
+
+
     }
 
     private void initLocation() {
@@ -59,14 +84,24 @@ public class MyPostionActivity extends AppCompatActivity implements View.OnClick
         mView.onDestroy();
         baiduMap.setMyLocationEnabled(false);
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        sndPool.unload(playId);
+        sndPool.release();
+        sndPool=null;
+    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId())
         {
             case R.id.btn_mine:
-                requestClient();break;
+                requestClient();
+                mClient.registerLocationListener(mListener);
+                break;
             case R.id.btn_aims:
+                mClient.stop();
                 getAims();
                 break;
         }
@@ -90,10 +125,13 @@ public class MyPostionActivity extends AppCompatActivity implements View.OnClick
 
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
+
+            mBdLocation=bdLocation;
             if(bdLocation.getLocType()==BDLocation.TypeGpsLocation||
                     bdLocation.getLocType()==BDLocation.TypeNetWorkLocation)
             {
                 navigateTo(bdLocation);
+                Log.i("PPPPPPPPPPPPPPPP", "initLocation: 定位自身");
             }
             MyLocationData.Builder builder=new MyLocationData.Builder();
             builder.latitude(bdLocation.getLatitude());
@@ -111,7 +149,7 @@ public class MyPostionActivity extends AppCompatActivity implements View.OnClick
             baiduMap.animateMapStatus(update);
             update=MapStatusUpdateFactory.zoomTo(16f);
             baiduMap.animateMapStatus(update);
-            isFirst=false;
+//            isFirst=false;
         }
     }
     @Override
