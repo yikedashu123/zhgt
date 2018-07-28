@@ -4,7 +4,6 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -32,7 +31,7 @@ public class MyPostionActivity extends AppCompatActivity implements View.OnClick
     private boolean isFirst=true;
     private Button mAims,mMine;
     private MyPostionActivity.MyLocationListener mListener;
-    private BDLocation mBdLocation;
+    //private BDLocation mBdLocation;
     private SoundPool sndPool;
     private Map<Integer, Integer> loadSound;
     private int playId;
@@ -126,12 +125,10 @@ public class MyPostionActivity extends AppCompatActivity implements View.OnClick
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
 
-            mBdLocation=bdLocation;
             if(bdLocation.getLocType()==BDLocation.TypeGpsLocation||
                     bdLocation.getLocType()==BDLocation.TypeNetWorkLocation)
             {
                 navigateTo(bdLocation);
-                Log.i("PPPPPPPPPPPPPPPP", "initLocation: 定位自身");
             }
             MyLocationData.Builder builder=new MyLocationData.Builder();
             builder.latitude(bdLocation.getLatitude());

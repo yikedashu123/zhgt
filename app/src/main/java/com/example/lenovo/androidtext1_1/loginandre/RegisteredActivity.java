@@ -30,7 +30,7 @@ public class RegisteredActivity extends AppCompatActivity implements View.OnClic
         mPhone.setOnClickListener(this);
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.replace(R.id.fl_layout,new PhoneFragment(),"ss");
+        transaction.replace(R.id.fl_layout,new PhoneFragment(this),"ss");
         transaction.commit();
     }
 
@@ -43,7 +43,7 @@ public class RegisteredActivity extends AppCompatActivity implements View.OnClic
                 mEmail.setTextColor(Color.BLACK);
                 manager = getSupportFragmentManager();
                 transaction = manager.beginTransaction();
-                transaction.replace(R.id.fl_layout,new PhoneFragment(),"ss");
+                transaction.replace(R.id.fl_layout,new PhoneFragment(this),"ss");
                 transaction.commit();
                 break;
             case R.id.btn_email:
