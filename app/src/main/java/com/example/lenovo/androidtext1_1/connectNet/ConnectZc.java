@@ -1,5 +1,7 @@
 package com.example.lenovo.androidtext1_1.connectNet;
 
+import android.util.Log;
+
 import com.example.lenovo.androidtext1_1.userData.User;
 
 import java.io.IOException;
@@ -15,6 +17,7 @@ public class ConnectZc {
     public static boolean getData(User user)
     {
         try {
+            Log.i("PPPPPPPPPPPP", "getData: "+user.getName()+"+++"+user.getPass());
             String url = "http://10.0.2.2:8088/AndroidTest/SubmitUser";
             OkHttpClient client=new OkHttpClient();
             MediaType JSON = MediaType.parse("application/json;charset=utf-8");

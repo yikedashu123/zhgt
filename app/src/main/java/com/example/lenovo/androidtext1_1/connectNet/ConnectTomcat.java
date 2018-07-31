@@ -1,5 +1,7 @@
 package com.example.lenovo.androidtext1_1.connectNet;
 
+import android.util.Log;
+
 import com.example.lenovo.androidtext1_1.userData.User;
 
 import java.io.IOException;
@@ -25,6 +27,7 @@ public class ConnectTomcat {
             Response response = call.execute();
             String s=response.body().string();
             String str[]=s.split("/");
+            Log.i("hhhhhhhhhhhhh", "getData: "+s);
             if(str[1].equals("登录成功"))
             {
                 return true;
